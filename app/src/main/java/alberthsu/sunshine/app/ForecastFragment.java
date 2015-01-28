@@ -1,6 +1,7 @@
 package alberthsu.sunshine.app;
 
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -28,8 +30,8 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 public class ForecastFragment extends Fragment {
 
     public ForecastFragment() {
@@ -89,6 +91,16 @@ public class ForecastFragment extends Fragment {
         ListView listView = (ListView) rootView.findViewById(
                 R.id.listview_forecast);
         listView.setAdapter(ForecastAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String forecast = ForecastAdapter.getItem(position);
+                Intent intent = new Intent(getActivity(), detailedActivity.class)
+                    .putExtra(Intent.EXTRA_TEXT, forecast);
+                startActivity(intent);
+                //Toast.makeText(getActivity(), forecast, Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
 
